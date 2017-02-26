@@ -108,6 +108,31 @@ export default class Profile extends Component {
         );
     }
 
+    _createWebsitesList = () => {
+        if(this.props.websites && this.props.websites.length > 0) {
+            return(
+                <ListView
+                    data={ this.props.websites || [] }
+                    loading={ this.props.loading }
+                    renderRow={ this._renderWebsite }
+                    onRefresh={ this.props.getWebSitesList } />
+            );
+        } else {
+            return(
+                <View style={{
+                    padding: 24,
+                    alignItems: 'center'
+                }}>
+                    <Text style={{
+                        fontSize: 24
+                    }}>
+                        Nessun sito registrato
+                    </Text>
+                </View>
+            );
+        }
+    }
+
     render() {
         return(
             <Screen>
@@ -118,22 +143,30 @@ export default class Profile extends Component {
                         <Title>I TUOI SITI</Title>
                     }
                     leftComponent={
-                        <Button onPress={ this._handleLogoutClick }>
+                        <Button onPress={ this._handleLogoutClick }
+                            style={{
+                                paddingTop: 2,
+                                paddingBottom: 2,
+                                paddingLeft: 16,
+                                paddingRight: 16
+                            }}>
                             <Text>Logout</Text>
                         </Button>
                     }
                     rightComponent={
-                        <Button onPress={ this._handleWebsiteRegistrationClick }>
+                        <Button onPress={ this._handleWebsiteRegistrationClick }
+                            style={{
+                                paddingTop: 2,
+                                paddingBottom: 2,
+                                paddingLeft: 16,
+                                paddingRight: 16
+                            }}>
                             <Text>Aggiungi</Text>
                         </Button>
                     }
                 />
 
-                <ListView
-                    data={ this.props.websites || [] }
-                    loading={ this.props.loading }
-                    renderRow={ this._renderWebsite }
-                    onRefresh={ this.props.getWebSitesList } />
+                { this._createWebsitesList() }
 
                 <LoginPinDialog
                     website={ this.state.selectedWebsite }

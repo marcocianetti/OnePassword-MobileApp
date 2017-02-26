@@ -34,7 +34,13 @@ export default class Auth extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.error != null) {
-            alert(nextProps.error);
+            if(nextProps.error == 'login_failed') {
+                alert('Email e/o password errati');
+            } else if(nextProps.error == 'user_already_registered') {
+                alert('Utente già registrato, esegui l\'accesso');
+            } else {
+                alert('Errore');
+            }
             return;
         }
 
