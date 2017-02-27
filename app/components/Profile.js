@@ -18,6 +18,7 @@ import {
     Text
 } from 'react-native';
 
+import CustomButton from './generics/Button';
 import RegistrationPinDialog from './pin/RegistrationPinDialog';
 import LoginPinDialog from './pin/LoginPinDialog';
 import WebSiteListItem from './websites/WebSiteListItem';
@@ -99,6 +100,10 @@ export default class Profile extends Component {
         });
     }
 
+    _handleRefreshClick = () => {
+        this.props.getWebSitesList();
+    }
+
     _renderWebsite = (website, sectionId, rowId) => {
         return(
             <WebSiteListItem
@@ -128,6 +133,18 @@ export default class Profile extends Component {
                     }}>
                         Nessun sito registrato
                     </Text>
+                    <CustomButton
+                        buttonStyle={{
+                            marginTop: 20,
+                            backgroundColor: '#009688',
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}
+                        textStyle={{
+                            color: '#fff'
+                        }}
+                        text="aggiorna"
+                        action={ this._handleRefreshClick }/>
                 </View>
             );
         }
